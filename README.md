@@ -1,33 +1,130 @@
-# unieuro-concorrente-202601-atividade5
+# RELATÓRIO DA NOME DA ATIVIDADE
 
-Testar a solução MPI construindo relatório de avaliação de performance para 2, 4, 8, 12 processos.
+**Disciplina:** Programação Concorrente / Computação Paralela  
+**Aluno(s):** Marcelo (ADS)  
+**Turma:** ________  
+**Professor:** Prof. Rafael  
+**Data:** 10/04/2026  
 
-## Instalação MPI
+---
 
-1) Instalar o MPI para Windows  
-https://www.microsoft.com/en-us/download/details.aspx?id=100593
+## 1. Descrição do Problema
 
-2) Instalar mpi4py
-pip install -r requeriments.txt
+O problema consiste em calcular a similaridade entre pares de perguntas utilizando o dataset do Kaggle (Quora Question Pairs).
 
-## Onde buscar os dados
+Foi implementado um algoritmo baseado em **similaridade de Jaccard**, após limpeza e tokenização dos textos.
 
-O site do Kaggle apresenta vários desafios, bancos de dados e projetos que estão abertos a comunidade para apoio. Alguns deles tem prêmios em dinheiro.
+### Objetivo
+Reduzir o tempo de processamento utilizando paralelização com MPI.
 
-Para esse experimento devemos buscar o arquivo "nlp_features_train.csv" no Quora Question Paris.
+### Dados utilizados
+- 5.000 perguntas
+- 12.497.500 comparações
 
-https://www.kaggle.com/datasets/elemento/quora-question-pairs?select=nlp_features_train.csv
+### Algoritmo
+- Similaridade de Jaccard
 
-## Executar
+### Complexidade
+- O(n²)
 
-Como executar o projeto:
+---
 
-### Versão serial
-```
-python avaliador.py
-```
-### Versão distribuída
-```
-mpiexec -n 4 python avaliador_mpi.py
-```
+## 2. Ambiente Experimental
 
+- Processador: (preencher)
+- Número de núcleos: (preencher)
+- Memória RAM: (preencher)
+- Sistema Operacional: Windows
+- Linguagem: Python
+- Biblioteca MPI: mpi4py
+- Versão Python: 3.x
+
+---
+
+## 3. Metodologia de Testes
+
+O tempo de execução foi medido com `MPI.Wtime()`.
+
+Foram executadas as seguintes configurações:
+
+- 1 processo
+- 2 processos
+- 4 processos
+- 8 processos
+- 12 processos
+
+Cada execução foi realizada uma vez devido ao alto custo computacional.
+
+---
+
+## 4. Resultados Experimentais
+
+| Processos | Tempo (s) |
+|----------|----------|
+| 1 | 34.74 |
+| 2 | 26.77 |
+| 4 | 17.11 |
+| 8 | 13.08 |
+| 12 | 12.17 |
+
+---
+
+## 5. Speedup e Eficiência
+
+### Fórmulas
+
+- Speedup = T(1) / T(p)
+- Eficiência = Speedup / p
+
+---
+
+## 6. Tabela de Resultados
+
+| Processos | Tempo (s) | Speedup | Eficiência |
+|----------|----------|---------|------------|
+| 1 | 34.74 | 1.00 | 1.00 |
+| 2 | 26.77 | 1.30 | 0.65 |
+| 4 | 17.11 | 2.03 | 0.51 |
+| 8 | 13.08 | 2.66 | 0.33 |
+| 12 | 12.17 | 2.85 | 0.24 |
+
+---
+
+## 7. Gráficos
+
+- Tempo de execução vs processos
+- Speedup vs processos
+- Eficiência vs processos
+
+---
+
+## 8. Análise dos Resultados
+
+Os resultados mostram melhora significativa de desempenho com MPI.
+
+### Observações:
+- Speedup não linear
+- Eficiência decrescente
+- Melhor faixa: 4 a 8 processos
+
+### Causas:
+- Overhead de comunicação MPI
+- Lei de Amdahl
+- Sincronização entre processos
+- Complexidade O(n²)
+
+---
+
+## 9. Conclusão
+
+O uso de MPI trouxe redução significativa no tempo de execução.
+
+### Conclusões:
+- Melhor desempenho entre 8–12 processos
+- Escalabilidade moderada
+- Ganhos limitados por overhead
+
+### Melhorias futuras:
+- Otimização do algoritmo
+- Melhor balanceamento de carga
+- Redução de comunicação entre processos
